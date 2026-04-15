@@ -1,3 +1,10 @@
+# PlatformIO build artifacts
+.pio/
+.pioenvs/
+.piolibdeps/
+.clang_complete
+.gcc-flags.json
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
