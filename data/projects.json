@@ -1,4 +1,4 @@
 [
-  {"id": "1234.5", "name": "1234.5", "totalSeconds": 0},
-  {"id": "0001.0", "name": "0001.0", "totalSeconds": 0}
+  {"id": "1234.5", "totalSeconds": 0},
+  {"id": "0001.0", "totalSeconds": 0}
 ]

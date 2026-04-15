@@ -44,7 +44,12 @@ static constexpr uint16_t STATUS_BAR_H      = 16;
 static constexpr uint32_t MSC_SECTOR_SIZE   = 512;
 
 static const char* NTP_SERVER    = "pool.ntp.org";
-static const char* TZ_INFO       = "UTC0";       // change to your timezone string
+// POSIX TZ string — "UTC0" = UTC.  Examples:
+//   "CET-1CEST,M3.5.0,M10.5.0/3"  Central European Time (CET/CEST)
+//   "EST5EDT,M3.2.0,M11.1.0"       US Eastern Time
+//   "PST8PDT,M3.2.0,M11.1.0"       US Pacific Time
+// Full list: https://github.com/nayarsystems/posix_tz_db
+static const char* TZ_INFO       = "UTC0";
 static const char* PROJECTS_FILE = "/projects.json";
 static const char* LOGS_DIR      = "/logs";
 
@@ -623,7 +628,7 @@ static void manualTimeShortPress()
     case 1: manualTm.tm_min  = (manualTm.tm_min  + 1) % 60;     break;
     case 2: manualTm.tm_mday = (manualTm.tm_mday % 31) + 1;     break;
     case 3: manualTm.tm_mon  = (manualTm.tm_mon  + 1) % 12;     break;
-    case 4: manualTm.tm_year = ((manualTm.tm_year - 124) % 10) + 124; break;
+    case 4: manualTm.tm_year = ((manualTm.tm_year - (2024 - 1900)) % 20 + (2024 - 1900)); break; // 2024-2043
     }
 }
 
@@ -770,7 +775,7 @@ static void setupWiFi()
         getLocalTime(&manualTm, 0);
         if (manualTm.tm_year < 100) {   // struct is zero/garbage
             manualTm = {};
-            manualTm.tm_year  = 124;    // 2024
+            manualTm.tm_year  = 2024 - 1900;   // default to 2024
             manualTm.tm_mon   = 0;
             manualTm.tm_mday  = 1;
             manualTm.tm_hour  = 0;
